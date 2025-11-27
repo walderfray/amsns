@@ -1,4 +1,51 @@
-import React, { useState } from 'react';
+const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+        ...prev,
+        [name]: value
+    }));
+    if (errors[name]) {
+        setErrors(prev => ({
+            ...prev,
+            [name]: ''
+        }));
+    }
+};
+
+const handleFileChange = (e, side) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Store the file in formData
+    if (side === 'front') {
+        setFormData(prev => ({
+            ...prev,
+            driverLicenseFront: file
+        }));
+    } else {
+        setFormData(prev => ({
+            ...prev,
+            driverLicenseBack: file
+        }));
+    }
+
+    // Create preview
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        if (side === 'front') {
+            setPreviewFront(event.target.result);
+        } else {
+            setPreviewBack(event.target.result);
+        }
+    };
+    reader.readAsDataURL(file);
+
+    // Clear error
+    setErrors(prev => ({
+        ...prev,
+        [`driverLicense${side === 'front' ? 'Front' : 'Back'}`]: ''
+    }));
+}; import React, { useState } from 'react';
 import { ChevronRight, ChevronLeft, Check } from 'lucide-react';
 
 export default function KYCForm() {
@@ -6,12 +53,47 @@ export default function KYCForm() {
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
-        driverLicenseNumber: '',
+        driverLicenseFront: null,
+        driverLicenseBack: null,
         nin: '',
         occupation: ''
     });
     const [errors, setErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
+    const [previewFront, setPreviewFront] = useState(null);
+    const [previewBack, setPreviewBack] = useState(null);
+
+    const handleFileChange = (e, side) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        if (side === 'front') {
+            setFormData(prev => ({
+                ...prev,
+                driverLicenseFront: file
+            }));
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setPreviewFront(event.target.result);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            setFormData(prev => ({
+                ...prev,
+                driverLicenseBack: file
+            }));
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setPreviewBack(event.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        setErrors(prev => ({
+            ...prev,
+            [`driverLicense${side === 'front' ? 'Front' : 'Back'}`]: ''
+        }));
+    };
 
     const validateStep = (currentStep) => {
         const newErrors = {};
@@ -20,8 +102,11 @@ export default function KYCForm() {
             if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
             if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
         } else if (currentStep === 2) {
-            if (!formData.driverLicenseNumber.trim()) {
-                newErrors.driverLicenseNumber = 'Driver\'s license number is required';
+            if (!formData.driverLicenseFront) {
+                newErrors.driverLicenseFront = 'Driver\'s license front image is required';
+            }
+            if (!formData.driverLicenseBack) {
+                newErrors.driverLicenseBack = 'Driver\'s license back image is required';
             }
             if (!formData.nin.trim()) newErrors.nin = 'NIN is required';
         } else if (currentStep === 3) {
@@ -79,7 +164,8 @@ export default function KYCForm() {
                         <h3 className="font-semibold text-gray-800 mb-3">Submitted Information:</h3>
                         <div className="space-y-2 text-sm text-gray-700">
                             <p><span className="font-medium">Name:</span> {formData.firstName} {formData.lastName}</p>
-                            <p><span className="font-medium">Driver's License:</span> {formData.driverLicenseNumber}</p>
+                            <p><span className="font-medium">Driver's License Front:</span> {formData.driverLicenseFront?.name}</p>
+                            <p><span className="font-medium">Driver's License Back:</span> {formData.driverLicenseBack?.name}</p>
                             <p><span className="font-medium">NIN:</span> {formData.nin}</p>
                             <p><span className="font-medium">Occupation:</span> {formData.occupation}</p>
                         </div>
@@ -165,20 +251,66 @@ export default function KYCForm() {
                             <h2 className="text-lg font-semibold text-gray-800 mb-4">Identification Details</h2>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Driver's License Number
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Driver's License - Front
                                 </label>
-                                <input
-                                    type="text"
-                                    name="driverLicenseNumber"
-                                    value={formData.driverLicenseNumber}
-                                    onChange={handleChange}
-                                    placeholder="Enter your driver's license number"
-                                    className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors.driverLicenseNumber ? 'border-red-500' : 'border-gray-300'
-                                        }`}
-                                />
-                                {errors.driverLicenseNumber && (
-                                    <p className="text-red-500 text-sm mt-1">{errors.driverLicenseNumber}</p>
+                                <div className="relative">
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={(e) => handleFileChange(e, 'front')}
+                                        className="hidden"
+                                        id="driverLicenseFront"
+                                    />
+                                    <label
+                                        htmlFor="driverLicenseFront"
+                                        className={`flex items-center justify-center w-full px-4 py-8 border-2 border-dashed rounded-lg cursor-pointer transition ${errors.driverLicenseFront ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-indigo-500 bg-gray-50 hover:bg-indigo-50'
+                                            }`}
+                                    >
+                                        {previewFront ? (
+                                            <img src={previewFront} alt="Front preview" className="max-h-40 max-w-full rounded" />
+                                        ) : (
+                                            <div className="text-center">
+                                                <p className="text-gray-600 font-medium">Click to upload or drag and drop</p>
+                                                <p className="text-gray-500 text-sm">PNG, JPG, GIF up to 10MB</p>
+                                            </div>
+                                        )}
+                                    </label>
+                                </div>
+                                {errors.driverLicenseFront && (
+                                    <p className="text-red-500 text-sm mt-1">{errors.driverLicenseFront}</p>
+                                )}
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Driver's License - Back
+                                </label>
+                                <div className="relative">
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={(e) => handleFileChange(e, 'back')}
+                                        className="hidden"
+                                        id="driverLicenseBack"
+                                    />
+                                    <label
+                                        htmlFor="driverLicenseBack"
+                                        className={`flex items-center justify-center w-full px-4 py-8 border-2 border-dashed rounded-lg cursor-pointer transition ${errors.driverLicenseBack ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-indigo-500 bg-gray-50 hover:bg-indigo-50'
+                                            }`}
+                                    >
+                                        {previewBack ? (
+                                            <img src={previewBack} alt="Back preview" className="max-h-40 max-w-full rounded" />
+                                        ) : (
+                                            <div className="text-center">
+                                                <p className="text-gray-600 font-medium">Click to upload or drag and drop</p>
+                                                <p className="text-gray-500 text-sm">PNG, JPG, GIF up to 10MB</p>
+                                            </div>
+                                        )}
+                                    </label>
+                                </div>
+                                {errors.driverLicenseBack && (
+                                    <p className="text-red-500 text-sm mt-1">{errors.driverLicenseBack}</p>
                                 )}
                             </div>
 

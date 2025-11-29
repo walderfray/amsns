@@ -3,15 +3,15 @@ import Overview from './Overview';
 import Founder from './Founder';
 import Testimonials from './Testimonials';
 import Footer from './Footer';
-import Advertisement from './Advertisement';
 import VideoComponent from './VideoComponent';
+import Gallery from './Gallery';
 export default function Home() {
     return (
         <div>
             <Hero />
             <Overview />
             <Founder />
-            <Advertisement />
+            <Gallery />
             <VideoComponent />
             <Testimonials />
             <Footer />

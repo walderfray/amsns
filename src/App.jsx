@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import GetStarted from "./components/GetStarted";
 import Kyc from "./components/Kyc";
+import StatusCorrection from "./components/StatusCorrection";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/GetStarted" element={<GetStarted />} />
         <Route path="/Kyc" element={<Kyc />} />
+        <Route path="/StatusCorrection" element={<StatusCorrection />} />
       </Routes>
     </BrowserRouter>
   );

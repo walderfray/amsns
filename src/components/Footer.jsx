@@ -16,7 +16,6 @@ export default function Footer() {
                     <h4 className="text-lg font-semibold text-white mb-2">Quick Links</h4>
                     <ul className="space-y-1 text-gray-400 text-sm">
                         <li className="hover:text-white transition cursor-pointer">Home</li>
-                        <li className="hover:text-white transition cursor-pointer">About</li>
                         <li className="hover:text-white transition cursor-pointer">Services</li>
                         <li className="hover:text-white transition cursor-pointer">Contact</li>
                     </ul>

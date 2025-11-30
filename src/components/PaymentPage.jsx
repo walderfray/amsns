@@ -120,7 +120,7 @@ export default function CompletePaymentPage() {
                                         <img
                                             src={coin.image}
                                             alt={coin.name}
-                                            className="w-16 h-16 shadow-lg"
+                                            className="w-16 h-16"
                                         />
                                         <div>
                                             <h3 className="text-2xl font-bold text-gray-900">{coin.name}</h3>
@@ -182,7 +182,7 @@ export default function CompletePaymentPage() {
                                         <img
                                             src={asset.image}
                                             alt={asset.name}
-                                            className="w-16 h-16 rounded-full object-cover shadow-md"
+                                            className="w-16 h-16 rounded-full object-cover"
                                         />
                                         <h3 className="text-2xl font-bold text-gray-900">{asset.name}</h3>
                                     </div>

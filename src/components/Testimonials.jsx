@@ -5,7 +5,7 @@ export default function Testimonials() {
             text: "This platform exceeded my expectations. The experience was seamless and enjoyable!",
         },
         {
-            name: "Michael Adewale",
+            name: "Hank Jefferson",
             text: "I love how simple everything is. It has made my workflow so much faster.",
         },
         {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FileText, CheckCircle, DollarSign, Phone } from 'lucide-react';
 import Footer from './Footer';
-export default function StatusCorrection() {
+export default function StatusCorrectionPage() {
     const [selectedDoc, setSelectedDoc] = useState(null);
 
     const documents = [

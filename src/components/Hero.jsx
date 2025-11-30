@@ -19,7 +19,7 @@ export default function HeroSection() {
                             AMERICAN STATE NATIONAL SOVEREIGNTY
                         </h1>
                         <p className="text-lg md:text-xl text-gray-600 mb-6 leading-relaxed">
-                            Discover amazing features and services that will transform the way you work. Our platform is designed to help you achieve your goals with ease and efficiency.
+                            Taking control of your legal status with proper documentation and precise execution
                         </p>
                         <button className="bg-blue-800 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition">
                             Get Started

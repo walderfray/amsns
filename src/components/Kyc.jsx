@@ -151,7 +151,7 @@ export default function KYCForm() {
 
     if (submitted) {
         return (
-            <div className="min-h-screen bg-white relative flex items-center justify-center p-4">
+            <div className="min-h-screen bg-white flex items-center justify-center p-4">
                 <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full text-center">
                     <div className="flex justify-center mb-4">
                         <div className="bg-green-100 rounded-full p-3">

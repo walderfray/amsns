@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FileText, CheckCircle, DollarSign, Phone } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Footer from './Footer';
 export default function StatusCorrectionPage() {
     const [selectedDoc, setSelectedDoc] = useState(null);
@@ -70,9 +71,9 @@ export default function StatusCorrectionPage() {
                             <div className="text-5xl font-bold mb-4">$399</div>
                             <p className="text-blue-50">One-time fee, all-inclusive</p>
                         </div>
-                        <button className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg shadow-lg hover:bg-blue-50 transition-colors duration-300">
+                        <Link to="/Payments" className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg shadow-lg hover:bg-blue-50 transition-colors duration-300">
                             Make Payment
-                        </button>
+                        </Link>
                     </div>
                 </section>
 

@@ -24,8 +24,8 @@ export default function Footer() {
                 {/* Contact */}
                 <div>
                     <h4 className="text-lg font-semibold text-white mb-2">Contact</h4>
-                    <p className="text-sm text-gray-400">Email: support@yourbrand.com</p>
-                    <p className="text-sm text-gray-400">Phone: +234 810 123 4567</p>
+                    <p className="text-sm text-gray-400">Email: aorhep9@gmail.com</p>
+                    <p className="text-sm text-gray-400">Phone: 657 347-4613</p>
                 </div>
             </div>
 

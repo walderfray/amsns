@@ -279,7 +279,7 @@ export default function Dashboard() {
                 stability for your family.
               </p>
               <div className="flex items-baseline gap-1 mb-8">
-                <span className="text-4xl font-bold text-gray-900">$999</span>
+                <span className="text-4xl font-bold text-gray-900">$2750</span>
                 <span className="text-gray-500 text-lg">/ one-time</span>
               </div>
               <button
@@ -308,7 +308,7 @@ export default function Dashboard() {
 
   const isTrust = user.selectedService === "trust";
   const documents = isTrust ? trustDocs : affidavitDocs;
-  const price = isTrust ? 999 : 399;
+  const price = isTrust ? 2750 : 399;
   const serviceName = isTrust
     ? "Irrevocable Private Trust"
     : "Affidavit of Repudiation";

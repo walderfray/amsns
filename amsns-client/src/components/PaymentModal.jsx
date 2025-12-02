@@ -10,6 +10,7 @@ import {
   Coins,
   Package,
   ChevronLeft,
+  Landmark,
 } from "lucide-react";
 import { client } from "../api/client";
 import useToast from "../hooks/useToast";
@@ -160,36 +161,63 @@ export default function PaymentModal({ isOpen, onClose }) {
                 >
                   <Package className="w-4 h-4" /> Physical Assets
                 </button>
+                <button
+                  onClick={() => setActiveTab("bank")}
+                  className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all flex items-center justify-center gap-2 ${
+                    activeTab === "bank"
+                      ? "bg-white text-blue-600 shadow-sm"
+                      : "text-gray-500 hover:text-gray-700"
+                  }`}
+                >
+                  <Landmark className="w-4 h-4" /> Bank Payment
+                </button>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {(activeTab === "crypto" ? cryptoCoins : physicalAssets).map(
-                  (asset) => (
-                    <div
-                      key={asset.id}
-                      onClick={() => handleAssetSelect(asset)}
-                      className="border border-gray-200 rounded-xl p-4 hover:border-blue-500 hover:shadow-md cursor-pointer transition-all group"
-                    >
-                      <div className="flex items-center gap-4">
-                        <img
-                          src={asset.image}
-                          alt={asset.name}
-                          className="w-12 h-12 object-contain"
-                        />
-                        <div>
-                          <h4 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
-                            {asset.name}
-                          </h4>
-                          <p className="text-xs text-gray-500">
-                            {asset.symbol || "Physical Asset"}
-                          </p>
+              {activeTab === "bank" ? (
+                <div className="text-center py-8 px-4">
+                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Landmark className="w-8 h-8 text-blue-600" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                    Bank Transfer
+                  </h3>
+                  <p className="text-gray-600 mb-6 leading-relaxed">
+                    To make payment via your bank, please contact our team via
+                    the chat support. They will provide you with the necessary
+                    bank details and instructions to complete your transaction
+                    securely.
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {(activeTab === "crypto" ? cryptoCoins : physicalAssets).map(
+                    (asset) => (
+                      <div
+                        key={asset.id}
+                        onClick={() => handleAssetSelect(asset)}
+                        className="border border-gray-200 rounded-xl p-4 hover:border-blue-500 hover:shadow-md cursor-pointer transition-all group"
+                      >
+                        <div className="flex items-center gap-4">
+                          <img
+                            src={asset.image}
+                            alt={asset.name}
+                            className="w-12 h-12 object-contain"
+                          />
+                          <div>
+                            <h4 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+                              {asset.name}
+                            </h4>
+                            <p className="text-xs text-gray-500">
+                              {asset.symbol || "Physical Asset"}
+                            </p>
+                          </div>
+                          <ArrowRight className="w-4 h-4 text-gray-300 ml-auto group-hover:text-blue-500" />
                         </div>
-                        <ArrowRight className="w-4 h-4 text-gray-300 ml-auto group-hover:text-blue-500" />
                       </div>
-                    </div>
-                  )
-                )}
-              </div>
+                    )
+                  )}
+                </div>
+              )}
             </>
           )}
 

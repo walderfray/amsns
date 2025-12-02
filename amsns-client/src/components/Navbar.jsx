@@ -131,7 +131,7 @@ export default function Navbar() {
                     className={`px-4 py-2 text-sm font-medium transition-colors rounded-lg ${
                       showDarkNav
                         ? "text-gray-700 hover:bg-gray-100"
-                        : "text-white hover:bg-white/10"
+                        : "text-black hover:bg-white/10"
                     }`}
                   >
                     Log in

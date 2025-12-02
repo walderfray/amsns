@@ -14,6 +14,7 @@ import AdminLayout from "./pages/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import UsersList from "./pages/admin/UsersList";
 import UserDetails from "./pages/admin/UserDetails";
+import NotFound from "./pages/NotFound";
 
 import Toast from "./components/Toast";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -61,6 +62,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="*" element={<NotFound />} />
         </Route>
 
         {/* Admin Routes */}

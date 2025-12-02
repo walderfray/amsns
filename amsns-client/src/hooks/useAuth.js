@@ -47,7 +47,7 @@ export const useLoginMutation = () => {
     onSuccess: (data) => {
       setLogin(data);
       success('Login successful!');
-      navigate('/kyc');
+      navigate('/dashboard');
     },
     onError: (err) => {
       const message = err?.detail || err?.message || 'Login failed';

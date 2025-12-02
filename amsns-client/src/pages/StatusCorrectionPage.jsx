@@ -313,6 +313,10 @@ export default function Dashboard() {
     ? "Irrevocable Private Trust"
     : "Affidavit of Repudiation";
 
+  const otherServiceName = isTrust
+    ? "Affidavit of Repudiation"
+    : "Irrevocable Private Trust";
+
   const currentService = user?.services?.[user?.selectedService] || {};
 
   const uploadedDocsCount = documents.filter((doc) =>
@@ -351,10 +355,12 @@ export default function Dashboard() {
           </div>
 
           <button
-            onClick={() => handleSelectService("none")}
-            className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+            onClick={() => handleSelectService(isTrust ? "affidavit" : "trust")}
+            disabled={isSelectingService}
+            className="text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center gap-2"
           >
-            Switch Service
+            {isSelectingService && <Loader2 className="w-4 h-4 animate-spin" />}
+            Switch to {otherServiceName}
           </button>
         </div>
 

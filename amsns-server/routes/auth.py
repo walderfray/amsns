@@ -51,7 +51,7 @@ async def register(user: UserCreate, db=Depends(get_database)):
     }
     user_dict["created_at"] = datetime.utcnow()
     user_dict["updated_at"] = datetime.utcnow()
-    user_dict["is_active"] = True
+    user_dict["is_admin"] = False
     
     await users_collection.insert_one(user_dict)
     if "_id" in user_dict:
@@ -96,7 +96,8 @@ async def login(user_credentials: UserLogin, db=Depends(get_database)):
                 "trust": {"status": "not_applied", "payment_status": "pending", "uploaded_documents": []}
             }),
             "createdAt": user.get("created_at"),
-            "isActive": user.get("is_active", True)
+            "isActive": user.get("is_active", True),
+            "isAdmin": user.get("is_admin", False),
         }
     }
 
@@ -122,6 +123,7 @@ async def get_current_user(token: dict = Depends(access_security), db=Depends(ge
         }),
         "createdAt": user.get("created_at"),
         "isActive": user.get("is_active", True),
+        "isAdmin": user.get("is_admin", False),
         "rejectionReason": user.get("rejection_reason")
     }
 

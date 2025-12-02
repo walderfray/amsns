@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from config.settings import get_settings
 from config.database import db
-from routes import auth, kyc, dashboard
+from routes import auth, kyc, dashboard, admin
 
 settings = get_settings()
 
@@ -34,6 +34,7 @@ app.add_middleware(
 app.include_router(auth.router)
 app.include_router(kyc.router)
 app.include_router(dashboard.router)
+app.include_router(admin.router)
 
 @app.get("/")
 async def health_check():

@@ -41,6 +41,10 @@ class ServiceState(BaseModel):
     payment_status: PaymentStatus = Field(default=PaymentStatus.PENDING)
     uploaded_documents: List[int] = Field(default=[])
     document_files: Dict[str, Dict] = Field(default={})
+    payment_reference: Optional[str] = Field(default=None, alias="paymentReference")
+    payment_method: Optional[str] = Field(default=None, alias="paymentMethod")
+    payment_date: Optional[datetime] = Field(default=None, alias="paymentDate")
+    payment_asset: Optional[str] = Field(default=None, alias="paymentAsset")
     
     model_config = ConfigDict(populate_by_name=True)
 
@@ -58,6 +62,7 @@ class UserInDB(UserBase):
     created_at: datetime = Field(default_factory=datetime.utcnow, alias="createdAt")
     updated_at: datetime = Field(default_factory=datetime.utcnow, alias="updatedAt")
     is_active: bool = Field(default=True, alias="isActive")
+    is_admin: bool = Field(default=False, alias="isAdmin")
     
     model_config = ConfigDict(populate_by_name=True)
 
@@ -67,7 +72,7 @@ class UserResponse(UserBase):
     selected_service: ServiceType = Field(..., alias="selectedService")
     services: Dict[str, ServiceState]
     created_at: datetime = Field(..., alias="createdAt")
-    is_active: bool = Field(..., alias="isActive")
+    is_admin: bool = Field(default=False, alias="isAdmin")
     
     model_config = ConfigDict(populate_by_name=True)
 

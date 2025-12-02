@@ -102,6 +102,7 @@ async def upload_document(
         "url": upload_result.get("secure_url"),
         "public_id": upload_result.get("public_id"),
         "format": upload_result.get("format"),
+        "original_filename": file.filename,
         "uploaded_at": datetime.utcnow()
     }
 

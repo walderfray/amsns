@@ -14,7 +14,7 @@ export const useUserQuery = () => {
     queryKey: ['user', token],
     queryFn: authApi.getMe,
     enabled: !!token,
-    refetchInterval: 30000, // Refetch every 30 seconds
+    refetchInterval: 10000, // Refetch every 30 seconds
     retry: false,
   });
 

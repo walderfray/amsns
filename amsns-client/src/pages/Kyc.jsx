@@ -18,6 +18,7 @@ import {
 import useAuthStore from "../store/useAuthStore";
 import useToast from "../hooks/useToast";
 import { useNavigate } from "react-router-dom";
+import API_BASE_URL, { ENDPOINTS } from "../config";
 import Logo from "../images/Logo.jpeg";
 
 export default function KYCForm() {
@@ -96,7 +97,7 @@ export default function KYCForm() {
         occupation: values.occupation,
       };
 
-      const response = await fetch("http://localhost:8000/kyc/submit", {
+      const response = await fetch(`${API_BASE_URL}${ENDPOINTS.KYC.SUBMIT}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

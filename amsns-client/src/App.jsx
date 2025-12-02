@@ -62,7 +62,6 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="*" element={<NotFound />} />
         </Route>
 
         {/* Admin Routes */}
@@ -71,6 +70,7 @@ export default function App() {
           <Route path="users" element={<UsersList />} />
           <Route path="users/:uid" element={<UserDetails />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

@@ -366,7 +366,7 @@ export default function Dashboard() {
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          {/* KYC Card */}
+          {/* QFS Card */}
           <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
             <div className="flex items-center justify-between mb-4">
               <div className="p-2 bg-blue-50 rounded-lg">
@@ -384,13 +384,13 @@ export default function Dashboard() {
               Identity Verification
             </h3>
             <p className="text-sm text-gray-500 mt-1 mb-4">
-              Complete your KYC to proceed.
+              Complete your QFS to proceed.
             </p>
             <Link
               to="/kyc"
               className="text-sm font-medium text-blue-600 hover:text-blue-700 flex items-center gap-1"
             >
-              Manage KYC <ArrowRight className="w-4 h-4" />
+              Manage QFS <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 

@@ -53,7 +53,7 @@ export default function UserDetails() {
     mutationFn: ({ approved, reason }) =>
       adminApi.approveKyc(uid, approved, reason),
     onSuccess: () => {
-      success("KYC status updated");
+      success("QFS status updated");
       queryClient.invalidateQueries(["admin", "user", uid]);
     },
     onError: (err) => showError(err.message),
@@ -218,7 +218,7 @@ export default function UserDetails() {
         <div className="flex justify-between items-start mb-4">
           <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
             <Shield className="w-5 h-5 text-blue-600" /> Identity Verification
-            (KYC)
+            (QFS)
           </h2>
           <span
             className={`px-3 py-1 rounded-full text-sm font-medium capitalize 
@@ -243,7 +243,7 @@ export default function UserDetails() {
                 onClick={() => approveKycMutation.mutate({ approved: true })}
                 className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium"
               >
-                Approve KYC
+                Approve QFS
               </button>
               <div className="flex gap-2">
                 <input

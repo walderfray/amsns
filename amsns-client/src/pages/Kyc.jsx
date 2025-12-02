@@ -111,10 +111,10 @@ export default function KYCForm() {
         throw new Error(errorData.detail || "Submission failed");
       }
 
-      success("KYC submitted successfully!");
+      success("QFS submitted successfully!");
       setSubmitted(true);
     } catch (err) {
-      showError(err.message || "Failed to submit KYC");
+      showError(err.message || "Failed to submit QFS");
     }
   };
 
@@ -132,7 +132,7 @@ export default function KYCForm() {
             Under Review
           </h2>
           <p className="text-gray-600 mb-8">
-            Your KYC information has been submitted and is currently under
+            Your QFS information has been submitted and is currently under
             review. We'll notify you once the verification is complete.
           </p>
           <div className="bg-blue-50 rounded-lg p-4 mb-6">
@@ -165,7 +165,7 @@ export default function KYCForm() {
             </div>
           </div>
           <h2 className="text-3xl font-bold text-gray-900 mb-3">
-            KYC Approved!
+            QFS Approved!
           </h2>
           <p className="text-gray-600 mb-8">
             Your identity has been successfully verified. You now have full
@@ -220,7 +220,7 @@ export default function KYCForm() {
             onClick={() => setIsResubmitting(true)}
             className="w-full px-6 py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors font-medium"
           >
-            Resubmit KYC
+            Resubmit QFS
           </button>
         </div>
       </div>
@@ -243,7 +243,7 @@ export default function KYCForm() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Complete Your KYC
+            Complete Your QFS
           </h1>
           <p className="text-gray-600">
             Please provide your information to verify your identity
@@ -559,7 +559,7 @@ export default function KYCForm() {
                       </>
                     ) : (
                       <>
-                        {step === 3 ? "Submit KYC" : "Next"}
+                        {step === 3 ? "Submit QFS" : "Next"}
                         {step < 3 && <ChevronRight className="w-4 h-4" />}
                       </>
                     )}

@@ -33,7 +33,7 @@ export default function AdminDashboard() {
       bg: "bg-blue-100",
     },
     {
-      label: "Pending KYC",
+      label: "Pending QFS",
       value: pendingKyc,
       icon: <Activity className="w-6 h-6 text-orange-600" />,
       bg: "bg-orange-100",

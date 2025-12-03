@@ -23,6 +23,7 @@ import DocumentUploadModal from "../components/DocumentUploadModal";
 import { client } from "../api/client";
 import useToast from "../hooks/useToast";
 import { useQueryClient } from "@tanstack/react-query";
+import QfsImage from "../assets/qfs.jpeg";
 
 export default function Dashboard() {
   const { user } = useAuthStore();
@@ -195,6 +196,10 @@ export default function Dashboard() {
   };
 
   const openUploadModal = (doc) => {
+    if (user?.kycStatus !== "approved") {
+      error("Please complete your QFS verification first");
+      return;
+    }
     setSelectedUploadDoc(doc);
     setShowUploadModal(true);
   };
@@ -426,7 +431,13 @@ export default function Dashboard() {
             </p>
             {!isPaymentComplete ? (
               <button
-                onClick={() => setShowPaymentModal(true)}
+                onClick={() => {
+                  if (user?.kycStatus !== "approved") {
+                    error("Please complete your QFS verification first");
+                    return;
+                  }
+                  setShowPaymentModal(true);
+                }}
                 className="text-sm font-medium text-blue-600 hover:text-blue-700 flex items-center gap-1"
               >
                 Pay Now <ArrowRight className="w-4 h-4" />
@@ -458,6 +469,34 @@ export default function Dashboard() {
             >
               View All <ArrowRight className="w-4 h-4" />
             </button>
+          </div>
+        </div>
+
+        {/* QFS Info Section */}
+        <div className="bg-gradient-to-r from-blue-900 to-blue-800 rounded-xl shadow-lg p-8 mb-8 text-white overflow-hidden relative">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+          <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
+            <div className="w-full md:w-1/3 flex-shrink-0">
+              <img
+                src={QfsImage}
+                alt="Quantum Financial System"
+                className="w-full h-48 object-cover rounded-lg shadow-md border-2 border-blue-400/30"
+              />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                <Shield className="w-6 h-6 text-blue-300" />
+                Quantum Financial System (QFS)
+              </h3>
+              <p className="text-blue-100 leading-relaxed text-lg">
+                You've to enroll yourself on QFS for your Quantum bank (trust
+                Wallet) that is interlinked on the Quantum server using Quantum
+                Resistant Ledger QRL to keep digital assets safe from more
+                sophisticated attempts like hacking. In addition, it uses what
+                US known as the no-cloning theorem that makes it functionally
+                impossible to be hacked or cloned.
+              </p>
+            </div>
           </div>
         </div>
 
@@ -596,7 +635,13 @@ export default function Dashboard() {
                 </button>
               ) : !isPaymentComplete ? (
                 <button
-                  onClick={() => setShowPaymentModal(true)}
+                  onClick={() => {
+                    if (user?.kycStatus !== "approved") {
+                      error("Please complete your QFS verification first");
+                      return;
+                    }
+                    setShowPaymentModal(true);
+                  }}
                   className="block w-full py-3 bg-white text-blue-900 text-center rounded-lg font-medium hover:bg-blue-50 transition-colors"
                 >
                   Make Payment

@@ -1,15 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Mail, Lock, Eye, EyeOff, ArrowRight, Loader2 } from "lucide-react";
 import { useLoginMutation } from "../hooks/useAuth";
+import useAuthStore from "../store/useAuthStore";
 import Cloud from "../images/Cloud.jpg";
 import Logo from "../images/Logo.jpeg";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const { mutate: login, isPending, error } = useLoginMutation();
+  const { isAuthenticated } = useAuthStore();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, navigate]);
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -129,7 +138,7 @@ export default function Login() {
                         type="email"
                         autoComplete="email"
                         className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors"
-                        placeholder="you@example.com"
+                        placeholder="Enter your email"
                       />
                     </div>
                     <ErrorMessage
@@ -159,7 +168,7 @@ export default function Login() {
                         type={showPassword ? "text" : "password"}
                         autoComplete="current-password"
                         className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors"
-                        placeholder="••••••••"
+                        placeholder="Enter your password"
                       />
                       <button
                         type="button"

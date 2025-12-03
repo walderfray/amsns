@@ -142,7 +142,7 @@ export default function ForgotPassword() {
                           type="email"
                           autoComplete="email"
                           className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors"
-                          placeholder="you@example.com"
+                          placeholder="Enter your email"
                         />
                       </div>
                       <ErrorMessage

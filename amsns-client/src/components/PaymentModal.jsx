@@ -14,7 +14,9 @@ import {
 } from "lucide-react";
 import { client } from "../api/client";
 import useToast from "../hooks/useToast";
+import useAuthStore from "../store/useAuthStore";
 import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import Btc from "../images/Btc.png";
 import Xrp from "../images/Xrp.png";
 import Xlm from "../images/Xlm.png";
@@ -29,10 +31,50 @@ export default function PaymentModal({ isOpen, onClose }) {
   const [copied, setCopied] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const { user } = useAuthStore();
   const { success, error } = useToast();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   if (!isOpen) return null;
+
+  if (user?.kycStatus !== "approved") {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden p-8 text-center">
+          <div className="flex justify-center mb-6">
+            <div className="bg-red-100 rounded-full p-4">
+              <Shield className="w-12 h-12 text-red-600" />
+            </div>
+          </div>
+          <h3 className="text-2xl font-bold text-gray-900 mb-3">
+            Verification Required
+          </h3>
+          <p className="text-gray-600 mb-8">
+            You must complete your QFS verification before making a payment.
+            Please verify your identity to proceed.
+          </p>
+          <div className="flex gap-4">
+            <button
+              onClick={onClose}
+              className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => {
+                onClose();
+                navigate("/kyc");
+              }}
+              className="flex-1 px-6 py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors font-medium"
+            >
+              Go to QFS
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const cryptoCoins = [
     {
@@ -290,8 +332,8 @@ export default function PaymentModal({ isOpen, onClose }) {
                     onChange={(e) => setReference(e.target.value)}
                     placeholder={
                       activeTab === "crypto"
-                        ? "e.g., 0x123abc..."
-                        : "e.g., UPS123456789"
+                        ? "Enter transaction hash"
+                        : "Enter tracking number"
                     }
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                     required

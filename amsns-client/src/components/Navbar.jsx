@@ -79,7 +79,10 @@ export default function Navbar() {
             {[
               { name: "Home", path: "/" },
               { name: "Services", path: "/services" },
-              { name: "Private Trust", path: "/private-trust" },
+              {
+                name: "Private Trust",
+                path: isAuthenticated ? "/dashboard" : "/private-trust",
+              },
               { name: "Contact", path: "/contact" },
             ].map((link) => (
               <Link
@@ -173,7 +176,10 @@ export default function Navbar() {
             {[
               { name: "Home", path: "/" },
               { name: "Services", path: "/services" },
-              { name: "Private Trust", path: "/private-trust" },
+              {
+                name: "Private Trust",
+                path: isAuthenticated ? "/dashboard" : "/private-trust",
+              },
               { name: "Contact", path: "/contact" },
             ].map((link) => (
               <Link

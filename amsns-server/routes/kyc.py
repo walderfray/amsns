@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi import APIRouter, HTTPException, status, Depends, BackgroundTasks
 from models.kyc import KYCCreate, KYCResponse, KYCInDB, KYCStatus
 from config.database import get_database
 from utils.security import access_security
@@ -11,6 +11,7 @@ router = APIRouter(prefix="/kyc", tags=["KYC"])
 @router.post("/submit", response_model=KYCResponse, status_code=status.HTTP_201_CREATED)
 async def submit_kyc(
     kyc_data: KYCCreate, 
+    background_tasks: BackgroundTasks,
     token: dict = Depends(access_security),
     db=Depends(get_database)
 ):
@@ -66,7 +67,32 @@ async def submit_kyc(
         {"$set": {"kyc_status": KYCStatus.SUBMITTED, "updated_at": datetime.utcnow()}}
     )
 
+    background_tasks.add_task(auto_approve_kyc, user_uid, db)
+
     return kyc_doc
+
+import asyncio
+
+async def auto_approve_kyc(user_uid: str, db):
+    await asyncio.sleep(30)
+    users_collection = db["users"]
+    kyc_collection = db["kyc"]
+    
+    # Update KYC status
+    await kyc_collection.update_one(
+        {"user_uid": user_uid},
+        {"$set": {
+            "status": KYCStatus.APPROVED, 
+            "updated_at": datetime.utcnow(),
+            "approved_at": datetime.utcnow()
+        }}
+    )
+    
+    # Update User status
+    await users_collection.update_one(
+        {"uid": user_uid},
+        {"$set": {"kyc_status": KYCStatus.APPROVED, "updated_at": datetime.utcnow()}}
+    )
 
 @router.get("/info", response_model=KYCResponse)
 async def get_kyc_info(

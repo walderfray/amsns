@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Logo from "../images/Logo.jpeg";
 import { Link } from "react-router-dom";
+import useAuthStore from "../store/useAuthStore";
 
 export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
+  const { isAuthenticated } = useAuthStore();
 
   useEffect(() => {
     setIsVisible(true);
@@ -36,7 +38,7 @@ export default function HeroSection() {
                 Get Started
               </Link>
               <Link
-                to="/private-trust"
+                to={isAuthenticated ? "/dashboard" : "/private-trust"}
                 className="bg-white border-2 border-blue-800 text-blue-800 hover:bg-blue-50 font-semibold py-4 px-8 rounded-lg transition text-center"
               >
                 Private Trust

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import useAuthStore from "../store/useAuthStore";
 
 export default function Overview() {
   const [isVisible, setIsVisible] = useState(false);
+  const { isAuthenticated } = useAuthStore();
 
   useEffect(() => {
     // Trigger fade-up animation after component mounts
@@ -53,7 +55,7 @@ export default function Overview() {
             For those looking to secure their legacy and protect their assets
             for generations to come, our{" "}
             <Link
-              to="/private-trust"
+              to={isAuthenticated ? "/dashboard" : "/private-trust"}
               className="text-blue-800 font-semibold hover:underline"
             >
               Irrevocable Private Trust

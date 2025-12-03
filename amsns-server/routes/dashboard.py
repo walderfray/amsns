@@ -5,12 +5,13 @@ from datetime import datetime
 from pymongo.collection import Collection
 from models.user import PaymentStatus
 from typing import List
-
-router = APIRouter(prefix="/dashboard", tags=["Dashboard"])
-
 from pydantic import BaseModel
 from models.user import ServiceType, ApplicationStatus
 from utils.cloudinary_helper import upload_file_to_cloudinary
+from models.kyc import KYCStatus
+
+router = APIRouter(prefix="/dashboard", tags=["Dashboard"])
+
 
 class SelectServiceRequest(BaseModel):
     service: ServiceType
@@ -36,6 +37,7 @@ async def select_service(
     
     return {"status": "success", "message": "Service selected successfully"}
 
+
 @router.post("/payment")
 async def process_payment(
     payment_data: PaymentRequest,
@@ -48,6 +50,9 @@ async def process_payment(
     user = await users_collection.find_one({"uid": user_uid})
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
+
+    if user.get("kyc_status") != KYCStatus.APPROVED:
+        raise HTTPException(status_code=403, detail="QFS verification required before payment")
         
     service = user.get("selected_service", "none")
     if service == "none":
@@ -79,6 +84,9 @@ async def upload_document(
     user = await users_collection.find_one({"uid": user_uid})
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
+
+    if user.get("kyc_status") != KYCStatus.APPROVED:
+        raise HTTPException(status_code=403, detail="QFS verification required before uploading documents")
         
     service = user.get("selected_service", "none")
     if service == "none":

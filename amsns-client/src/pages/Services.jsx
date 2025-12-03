@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FileText, Shield, Users, ArrowRight } from "lucide-react";
 import Footer from "../components/Footer";
+import useAuthStore from "../store/useAuthStore";
 
 export default function Services() {
   const [isVisible, setIsVisible] = useState(false);
+  const { isAuthenticated } = useAuthStore();
 
   useEffect(() => {
     setIsVisible(true);
@@ -34,7 +36,7 @@ export default function Services() {
       title: "Irrevocable Private Trust",
       description:
         "Protect your assets and build a lasting legacy. Our trust services offer enhanced privacy, asset protection, and long-term security for your family.",
-      link: "/private-trust",
+      link: isAuthenticated ? "/dashboard" : "/private-trust",
     },
   ];
 

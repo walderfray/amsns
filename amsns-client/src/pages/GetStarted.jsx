@@ -150,7 +150,7 @@ export default function GetStarted() {
                           name="firstName"
                           type="text"
                           className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors"
-                          placeholder="John"
+                          placeholder="Enter your first name"
                         />
                       </div>
                       <ErrorMessage
@@ -179,7 +179,7 @@ export default function GetStarted() {
                           name="lastName"
                           type="text"
                           className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors"
-                          placeholder="Doe"
+                          placeholder="Enter your last name"
                         />
                       </div>
                       <ErrorMessage
@@ -210,7 +210,7 @@ export default function GetStarted() {
                         type="email"
                         autoComplete="email"
                         className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors"
-                        placeholder="you@example.com"
+                        placeholder="Enter your email"
                       />
                     </div>
                     <ErrorMessage
@@ -240,7 +240,7 @@ export default function GetStarted() {
                         type={showPassword ? "text" : "password"}
                         autoComplete="new-password"
                         className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors"
-                        placeholder="••••••••"
+                        placeholder="Create a password"
                       />
                       <button
                         type="button"

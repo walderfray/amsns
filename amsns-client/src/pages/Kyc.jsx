@@ -323,7 +323,7 @@ export default function KYCForm() {
                           name="firstName"
                           type="text"
                           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                          placeholder="John"
+                          placeholder="Enter your first name"
                         />
                         <ErrorMessage
                           name="firstName"
@@ -340,7 +340,7 @@ export default function KYCForm() {
                           name="lastName"
                           type="text"
                           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                          placeholder="Doe"
+                          placeholder="Enter your last name"
                         />
                         <ErrorMessage
                           name="lastName"
@@ -357,7 +357,7 @@ export default function KYCForm() {
                           name="address"
                           type="text"
                           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                          placeholder="123 Main St, City, Country"
+                          placeholder="Enter your full address"
                         />
                         <ErrorMessage
                           name="address"
@@ -523,7 +523,7 @@ export default function KYCForm() {
                         name="occupation"
                         type="text"
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                        placeholder="Software Engineer"
+                        placeholder="Enter your occupation"
                       />
                       <ErrorMessage
                         name="occupation"

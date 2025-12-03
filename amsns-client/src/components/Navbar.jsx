@@ -65,11 +65,11 @@ export default function Navbar() {
                 className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
               />
               <span
-                className={`text-xl font-bold tracking-tight ${
+                className={`text-sm max-w-64 md:max-w-96 font-bold tracking-tight ${
                   showDarkNav ? "text-gray-900" : "text-gray-900 "
                 } transition-colors`}
               >
-                AMSNS
+                AMERICAN STATE NATIONAL SOVEREIGNTY
               </span>
             </Link>
           </div>

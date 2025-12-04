@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     log_file_backup_count: int = 5
 
     # browser config
-    allowed_origins: str = "http://localhost:3000,http://localhost:5173"
+    allowed_origins: str = "http://localhost:3000,http://localhost:5173,https://www.americanstatenational.world,https://americanstatenational.world"
     frontend_url: str = "http://localhost:5173"
 
     # database config
